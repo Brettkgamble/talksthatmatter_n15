@@ -9,13 +9,15 @@ import {FaPause} from "react-icons/fa";
 
 const AudioPlayer = () => {
 
-  const [isPlaying, setIsPlaying ] = React.useState();
+  const [isPlaying, setIsPlaying ] = React.useState(false);
 
   return (
     <div>
       <audio src="https://cdn.simplecast.com/audio/cae8b0eb-d9a9-480d-a652-0defcbe047f4/episodes/602fd246-0a4f-49eb-83e5-41dc1f15ed50/audio/9fc78e12-f322-41d9-8a1b-05cfb40b3c69/default_tc.mp3?nocache" preload="metadata"></audio>
       <button><BsArrowLeftShort/> 30</button>
-      <button> play / pause</button>
+      <button>
+        { isPlaying ? <FaPlay /> : <FaPause /> } 
+      </button>
       <button>30 <BsArrowRightShort /></button>
 
       {/* current time */}
