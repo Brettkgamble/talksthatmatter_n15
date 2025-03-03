@@ -4,6 +4,7 @@
     --primary: #f40082;
     --secondary: #ffd200;
 
+    align-items: center;
     display: flex;
     width: 700px;
 }
@@ -30,4 +31,32 @@
     height: 75px;
     font-size: 32px;
     color: var(--secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play {
+    position: relative;
+    left: 5px;
+}
+
+.currentTime,
+.duration {
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.currentTime {
+    margin-left: 25px;
+}
+
+.progressBar {
+    --bar-bg: #ffe3d4;
+    --seek-before-width: 100px;
+    --seek-before-color: #ffc2a1;
+    --knobby: #3452a5;
+    --selectedKnobby: #26c9c3;
+
+    appearance: none;
 }
