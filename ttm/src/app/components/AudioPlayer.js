@@ -9,7 +9,7 @@ import {FaPause} from "react-icons/fa";
 
 const AudioPlayer = () => {
 
-  const [isPlaying, setIsPlaying ] = React.useState(false);
+  const [isPlaying] = React.useState(false);
 
   return (
     <div>
