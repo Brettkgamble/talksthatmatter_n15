@@ -1,10 +1,10 @@
-import styles from './styles/AudioPlayer.module.css';
+import styles from "./styles/Home.module.css"
 import { AudioPlayer } from './components/AudioPlayer';
 
 export default function Home() {
   return (
-    <div className={`${styles.audioPlayer} flex min-h-screen pt-0 px-6 justify-center items-center`}>
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className={styles.container}>
+      <main className={styles.main}>
         <AudioPlayer />
       </main>
     </div>

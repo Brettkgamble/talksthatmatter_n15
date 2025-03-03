@@ -1,3 +1,9 @@
 .audioPlayer {
+    display: flex;
     width: 700px;
+}
+
+.audioPlayer>button {
+    display:inline-block;
+    width: 40px;
 }
