@@ -1,6 +1,6 @@
 'use client'
 import styles from '../styles/AudioPlayer.module.css';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import { BsArrowRightShort } from "react-icons/bs";
@@ -11,9 +11,24 @@ import {FaPause} from "react-icons/fa";
 const AudioPlayer = () => {
   // state
   const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   // references
   const audioPlayer = useRef();  // referenc to our audio component
+
+  useEffect(()=> {
+    const seconds = Math.floor(audioPlayer.current.duration);
+    setDuration(seconds);
+  }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
+
+  const calculateTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${returnedMinutes}:${returnedSeconds}`;
+  }
 
   const togglePlayPause = () => {
     const prevValue = isPlaying;
@@ -35,15 +50,15 @@ const AudioPlayer = () => {
       <button className={styles.forwardBackward}>30 <BsArrowRightShort /></button>
 
       {/* current time */}
-      <div className={styles.currentTime}>0:00</div>
+      <div className={styles.currentTime}>{calculateTime(currentTime)}</div>
 
       {/* progress bar */}
       <div>
-        <input type="range" className={styles.progressBar}></input>
+        <input type="range" className={styles.progressBar} defaultValue="0"></input>
       </div>
 
       {/* duration */}
-      <div className={styles.duration}>2:49</div>
+      <div className={styles.duration}>{ (duration && !isNaN(duration)) && calculateTime(duration)}</div>
     </div>
   )
 }
