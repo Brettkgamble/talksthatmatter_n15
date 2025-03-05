@@ -128,3 +128,28 @@
     z-index: 3;
     box-sizing: border-box;
 }
+
+/* knobby while dragging - chrome and safari */
+.progressBar:active::-webkit-slider-thumb {
+    transform: scale(1.2);
+    background: var(--selectedKnobby);
+}
+
+/* knobby - firefox */
+.progressBar::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: transparent;
+    background-color: var(--knobby) ;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+}
+
+/* knobby while dragging - firefox */
+.progressBar:active::-moz-range-thumb {
+    transform: scale(1.2);
+    background: var(--selectedKnobby);
+}
