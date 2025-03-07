@@ -14,6 +14,18 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
+  // pass in as a prop.  Params are seconds
+  const chapters = [
+    {
+      start: 10,
+      end: 25
+    },
+    {
+      start: 50,
+      end: 70
+    },
+  ]
+
   // references
   const audioPlayer = useRef();  // reference to our audio component
   const progressBar = useRef();  // reference to progress bar
@@ -89,8 +101,12 @@ const AudioPlayer = () => {
       <div className={styles.currentTime}>{calculateTime(currentTime)}</div>
 
       {/* progress bar */}
-      <div>
+      <div className={styles.progressBarWrapper}>
         <input type="range" className={styles.progressBar} defaultValue="0" ref={progressBar} onChange={changeRange}></input>
+        {chapters.map((chapter, i) => {
+          return(<div key={i} className={styles.chapter}></div>)
+        })}
+        
       </div>
 
       {/* duration */}
