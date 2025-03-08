@@ -17,12 +17,12 @@ const AudioPlayer = () => {
   // pass in as a prop.  Params are seconds
   const chapters = [
     {
-      start: 10,
-      end: 25
+      start: 0,
+      end: 15
     },
     {
-      start: 50,
-      end: 70
+      start: 60,
+      end: 75,
     },
   ]
 
@@ -104,7 +104,20 @@ const AudioPlayer = () => {
       <div className={styles.progressBarWrapper}>
         <input type="range" className={styles.progressBar} defaultValue="0" ref={progressBar} onChange={changeRange}></input>
         {chapters.map((chapter, i) => {
-          return(<div key={i} className={styles.chapter}></div>)
+          console.log('duration', duration);
+          const leftStyle = chapter.start / duration * 100;
+          const widthStyle = (chapter.end - chapter.start) * 0.2;
+          // console.table({i, leftStyle, widthStyle});
+          return(
+            <div 
+              key={i} 
+              className={`${styles.chapter} ${chapter.start == 0 && styles.start} ${chapter.start == duration && styles.end}`}
+              style={{
+                '--left': `${leftStyle}%`,
+                '--width': `${widthStyle}%`,
+              }}
+              ></div>
+          )
         })}
         
       </div>

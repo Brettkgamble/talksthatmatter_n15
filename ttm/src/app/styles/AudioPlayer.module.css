@@ -4,6 +4,8 @@
     --primary: #f40082;
     --secondary: #ffd200;
 
+    --roundedCorner: 10px;
+
     align-items: center;
     display: flex;
     width: 700px;
@@ -60,7 +62,7 @@
 
     appearance: none;
     background: var(--bar-bg);
-    border-radius: 10px;
+    border-radius: var(--roundedCorner);
     position: relative;
     width: 100%;
     height: 11px;
@@ -71,7 +73,7 @@
 /* progress bar - safari */
 .progressBar::-webkit-slider-runnable-track {
     background: var(--bar-bg);
-    border-radius: 10px;
+    border-radius: var(--roundedCorner);
     position: relative;
     width: 100%;
     height: 11px;
@@ -81,7 +83,7 @@
 /* progress bar - firefox */
 .progressBar::-moz-range-track {
     background: var(--bar-bg);
-    border-radius: 10px;
+    border-radius: var(--roundedCorner);
     position: relative;
     width: 100%;
     height: 11px;
@@ -98,8 +100,8 @@
     height: 11px;
     width: var(--seek-before-width);
     background-color: var(--seek-before-color);
-    border-top-left-radius: 10px; 
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: var(--roundedCorner);
+    border-bottom-left-radius: var(--roundedCorner);
     position: absolute;
     top: 0;
     left: 0;
@@ -110,8 +112,8 @@
 /* progress bar - firefox */
 .progressBar::-moz-range-progress {
     background-color: var(--seek-before-color);
-    border-top-left-radius: 10px; 
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: var(--roundedCorner);
+    border-bottom-left-radius: var(--roundedCorner);
     height: 11px;
 }
 
@@ -155,18 +157,28 @@
     background: var(--selectedKnobby);
 }
 
+.progressBarWrapper {
+    position: relative;
+}
+
 .chapter {
     display: block;
     height: 11px;
     background-color: var(--primary);
     position: absolute;
     top: 6px;
-    left: 45%;
-    width: 5%;
+    left: var(--left);
+    width: var(--width);
     pointer-events: none;
     z-index: 2;
 }
 
-.progressBarWrapper {
-    position: relative;
+.chapterStart {
+    border-top-left-radius: var(--roundedCorner);
+    border-bottom-left-radius: var(--roundedCorner);
+}
+
+.chapterEnd {
+    border-top-right-radius: var(--roundedCorner);
+    border-bottom-left-radius: var(--roundedCorner);
 }
