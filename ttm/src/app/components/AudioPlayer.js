@@ -1,6 +1,7 @@
 'use client'
 import styles from '../styles/AudioPlayer.module.css';
 import React, {useState, useRef, useEffect} from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import { BsArrowRightShort } from "react-icons/bs";
@@ -13,6 +14,9 @@ const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+
+  const searchParams = useSearchParams();
+  const timeJump = searchParams.get('jump')
 
   // pass in as a prop.  Params are seconds
   const chapters = [
@@ -31,6 +35,16 @@ const AudioPlayer = () => {
   const progressBar = useRef();  // reference to progress bar
   const animationRef = useRef(); // references the animation
 
+  useEffect(()=>{
+    if (timeJump) {
+      timeTravel(timeJump);
+      setIsPlaying(true);
+      play();
+    } else {
+      timeTravel(0);
+    }
+  },[timeJump])
+
   useEffect(()=> {
     const seconds = Math.floor(audioPlayer.current.duration);
     setDuration(seconds);
@@ -45,12 +59,16 @@ const AudioPlayer = () => {
     return `${returnedMinutes}:${returnedSeconds}`;
   }
 
+  const play =() => {
+    audioPlayer.current.play();
+    animationRef.current = requestAnimationFrame(whilePlaying);
+  }
+
   const togglePlayPause = () => {
     const prevValue = isPlaying;
     setIsPlaying(!prevValue);
     if (!prevValue) {
-      audioPlayer.current.play();
-      animationRef.current = requestAnimationFrame(whilePlaying);
+      play();
     } else {
       audioPlayer.current.pause();
       cancelAnimationFrame(animationRef.current);
@@ -74,14 +92,15 @@ const AudioPlayer = () => {
   }
 
   const backThirty = () => {
-    progressBar.current.value = Number(progressBar.current.value) - 30;
-    changeRange();
+    timeTravel(Number(progressBar.current.value) - 30);
   }
 
   const forwardThirty = () => {
+    timeTravel(Number(progressBar.current.value) + 30);
+  }
 
-    progressBar.current.value = Number(progressBar.current.value) + 30;
-
+  const timeTravel = (newTime) => {
+    progressBar.current.value = newTime;
     changeRange();
   }
 
@@ -106,6 +125,7 @@ const AudioPlayer = () => {
         {chapters.map((chapter, i) => {
           console.log('duration', duration);
           const leftStyle = chapter.start / duration * 100;
+          // TODO:  Alter width based on duration.  100% multiplier is way to big for anything longer than 600 seconds
           const widthStyle = (chapter.end - chapter.start) * 0.2;
           // console.table({i, leftStyle, widthStyle});
           return(
