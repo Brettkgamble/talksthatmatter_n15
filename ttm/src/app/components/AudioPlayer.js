@@ -120,27 +120,27 @@ const AudioPlayer = () => {
       <div className={styles.currentTime}>{calculateTime(currentTime)}</div>
 
       {/* progress bar */}
-      <div className={styles.progressBarWrapper}>
-        <input type="range" className={styles.progressBar} defaultValue="0" ref={progressBar} onChange={changeRange}></input>
-        {chapters.map((chapter, i) => {
-          console.log('duration', duration);
-          const leftStyle = chapter.start / duration * 100;
-          // TODO:  Alter width based on duration.  100% multiplier is way to big for anything longer than 600 seconds
-          const widthStyle = (chapter.end - chapter.start) * 0.2;
-          // console.table({i, leftStyle, widthStyle});
-          return(
-            <div 
-              key={i} 
-              className={`${styles.chapter} ${chapter.start == 0 && styles.start} ${chapter.start == duration && styles.end}`}
-              style={{
-                '--left': `${leftStyle}%`,
-                '--width': `${widthStyle}%`,
-              }}
-              ></div>
-          )
-        })}
-        
-      </div>
+        <div className={styles.progressBarWrapper}>
+          <input type="range" className={styles.progressBar} defaultValue="0" ref={progressBar} onChange={changeRange}></input>
+          {chapters.map((chapter, i) => {
+            console.log('duration', duration);
+            const leftStyle = chapter.start / duration * 100;
+            // TODO:  Alter width based on duration.  100% multiplier is way to big for anything longer than 600 seconds
+            const widthStyle = (chapter.end - chapter.start) * 0.2;
+            // console.table({i, leftStyle, widthStyle});
+            return(
+              <div 
+                key={i} 
+                className={`${styles.chapter} ${chapter.start == 0 && styles.start} ${chapter.start == duration && styles.end}`}
+                style={{
+                  '--left': `${leftStyle}%`,
+                  '--width': `${widthStyle}%`,
+                }}
+                ></div>
+            )
+          })}
+          
+        </div>
 
       {/* duration */}
       <div className={styles.duration}>{ (duration && !isNaN(duration)) && calculateTime(duration)}</div>
