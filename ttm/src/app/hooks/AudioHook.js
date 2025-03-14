@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from 'next/navigation';
 
 const useAudio = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [timeJump, setTimeJump] = useState(0);
-
-    
 
     // references
     const audioPlayer = useRef();  // reference to our audio component
