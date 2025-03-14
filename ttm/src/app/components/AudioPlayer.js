@@ -1,7 +1,9 @@
 'use client'
+import { useSearchParams } from 'next/navigation';
 import styles from '../styles/AudioPlayer.module.css';
 import React, { useEffect } from 'react';
 import { useAudio } from '../hooks/AudioHook';
+
 import PropTypes from "prop-types";
 
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -9,8 +11,10 @@ import { BsArrowRightShort } from "react-icons/bs";
 import {FaPlay} from "react-icons/fa";
 import {FaPause} from "react-icons/fa";
 
+const AudioPlayer = ({ chapters, track }) => {
 
-const AudioPlayer = ({ chapters, timeJump, track }) => {
+  const searchParams = useSearchParams();
+  let timeJump = searchParams.get('jump');
 
   const {
     audioPlayer,
@@ -21,11 +25,8 @@ const AudioPlayer = ({ chapters, timeJump, track }) => {
     duration,
     forwardThirty,
     isPlaying,
-    play,
     progressBar,
-    setDuration,
     setTimeJump,
-    timeTravel,
     togglePlayPause,
   } = useAudio();
 

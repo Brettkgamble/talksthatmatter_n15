@@ -7,7 +7,7 @@ const useAudio = () => {
     const [currentTime, setCurrentTime] = useState(0);
     const [timeJump, setTimeJump] = useState(0);
 
-    const searchParams = useSearchParams();
+    
 
     // references
     const audioPlayer = useRef();  // reference to our audio component
@@ -30,6 +30,7 @@ const useAudio = () => {
     },[currentTime]);
 
     useEffect(()=> {
+        console.log('here')
         if (timeJump && timeJump > 0) {
             timeTravel(timeJump);
             setIsPlaying(true);
@@ -46,7 +47,7 @@ const useAudio = () => {
         return `${returnedMinutes}:${returnedSeconds}`;
     }
 
-    const play =() => {
+    const play = () => {
         audioPlayer.current.play();
         animationRef.current = requestAnimationFrame(whilePlaying);
     }
@@ -87,7 +88,7 @@ const useAudio = () => {
     }
 
     const timeTravel = (newTime) => {
-    progressBar.current.value = newTime;
+        progressBar.current.value = newTime;
         changeRange();
     }
 
