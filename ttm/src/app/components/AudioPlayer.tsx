@@ -4,17 +4,25 @@ import styles from '../styles/AudioPlayer.module.css';
 import React, { useEffect } from 'react';
 import { useAudio } from '../hooks/AudioHook';
 
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import { BsArrowRightShort } from "react-icons/bs";
 import {FaPlay} from "react-icons/fa";
 import {FaPause} from "react-icons/fa";
 
-const AudioPlayer = ({ chapters, track }) => {
+interface Props {
+  chapters?: {
+    start: number,
+    end: number
+  }[],
+  track: string,
+}
+
+const AudioPlayer = ({ chapters =[], track }: Props) => {
 
   const searchParams = useSearchParams();
-  let timeJump = searchParams.get('jump');
+  const timeJump = Number(searchParams.get('jump'));
 
   const {
     audioPlayer,
@@ -31,8 +39,8 @@ const AudioPlayer = ({ chapters, track }) => {
   } = useAudio();
 
   useEffect(() => {
-    setTimeJump(timeJump);
-  }, [timeJump])
+    if(timeJump) setTimeJump(timeJump);
+  }, [timeJump, setTimeJump])
  
   return (
     <div className={styles.audioPlayer}>
@@ -63,7 +71,7 @@ const AudioPlayer = ({ chapters, track }) => {
                 style={{
                   '--left': `${leftStyle}%`,
                   '--width': `${widthStyle}%`,
-                }}
+                } as React.CSSProperties }
                 ></div>
             )
           })}
@@ -75,21 +83,5 @@ const AudioPlayer = ({ chapters, track }) => {
     </div>
   )
 }
-
-AudioPlayer.PropTypes ={
-  chapters: PropTypes.arrayOf(PropTypes.shape({
-    start: PropTypes.number,
-    end: PropTypes.number
-  })),
-  timeJump: PropTypes.number,
-  track:PropTypes.string.isRequired
-}
-
-AudioPlayer.defaultProps = {
-  chapters: [],
-  timeJump: 0,
-}
-
-
 
 export {AudioPlayer}
